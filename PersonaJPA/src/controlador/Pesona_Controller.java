@@ -18,7 +18,7 @@ import modelo.*;
  */
 public class Pesona_Controller {
     
-    public void Insetar(Persona p) {
+    public void Insertar(Persona p) {
         // Recupera el entity manager
         EM_Controller oem = new EM_Controller();
         EntityManager em = oem.getEntityManager();

@@ -47,8 +47,8 @@ public class PersonaJPA {
             
             Pesona_Controller pc = new Pesona_Controller();
             
-            pc.Insetar(persona1);
-            pc.Insetar(persona2);
+            pc.Insertar(persona1);
+            pc.Insertar(persona2);
             
             pc.Consulta();        
 
