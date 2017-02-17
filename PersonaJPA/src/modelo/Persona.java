@@ -23,9 +23,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "M6UF2_PERSONES")
 public class Persona implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "personaId")
@@ -36,15 +36,15 @@ public class Persona implements Serializable {
 
     @Column(name = "personaApellidos", length = 50, nullable = false)
     private String apellidos;
-    
+
     @Column(unique = true)
     private String email;
-    
+
     @Column(length = 9)
     private String telefono;
-    
+
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn (name = "direccioId")
+    @JoinColumn(name = "direccioId")
     private Direccio direccio;
 
     public Persona() {
@@ -130,6 +130,5 @@ public class Persona implements Serializable {
     public String toString() {
         return "Persona{ nombre=" + nombre + ", apellidos=" + apellidos + ", email=" + email + ", telefono=" + telefono + ", direccio=" + direccio + '}';
     }
-
 
 }
