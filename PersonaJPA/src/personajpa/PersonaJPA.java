@@ -50,7 +50,6 @@ public class PersonaJPA {
             //1er INSERTEM LES PERSONES A LA BBDD I DESPRES COMENTEM LES 3 LINIES SEGUENTES
             pc.Insertar(persona1);
             pc.Insertar(persona2);
-            
             pc.Consulta();
             
             //2n DESCOMENTEM LES 8 LINIES SEGUENTS, OBTENIM ELS IDPERSONA CREATS A LA BBDD I ELS MODIFIQUEM
