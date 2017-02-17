@@ -46,19 +46,21 @@ public class PersonaJPA {
             persona2.setDireccio(direccio2);
 
             Persona_Controller pc = new Persona_Controller();
-
+            
+            //1er INSERTEM LES PERSONES A LA BBDD I DESPRES COMENTEM LES 3 LINIES SEGUENTES
             pc.Insertar(persona1);
             pc.Insertar(persona2);
             
             pc.Consulta();
             
-//            Persona p = pc.Buscar(501L);
+            //2n DESCOMENTEM LES 8 LINIES SEGUENTS, OBTENIM ELS IDPERSONA CREATS A LA BBDD I ELS MODIFIQUEM
+//            Persona p = pc.Buscar(501L); //PRIMER IDPERSONA
 //            pc.imprimirPersona(p);
 //
 //            p.setNombre("Pepe");
 //            pc.Modificar(p);
 //
-//            p = pc.Buscar(521L);
+//            p = pc.Buscar(521L); //SEGON IDPERSONA
 //            pc.imprimirPersona(p);
 //
 //            pc.Eliminar(p);
