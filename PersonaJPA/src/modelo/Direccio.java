@@ -113,7 +113,7 @@ public class Direccio implements Serializable {
 
     @Override
     public String toString() {
-        return "Direccio{" + "carrer=" + carrer + ", ciutat=" + ciutat + ", cp=" + cp + ", pais=" + pais + ", persona=" + persona.getNombre() + '}';
+        return "Direccio{" + "carrer=" + carrer + ", ciutat=" + ciutat + ", cp=" + cp + ", pais=" + pais + ", persona=" + persona.getId() + '}';
     }
     
 }
