@@ -45,25 +45,28 @@ public class PersonaJPA {
             persona1.setDireccio(direccio1);
             persona2.setDireccio(direccio2);
 
-            Pesona_Controller pc = new Pesona_Controller();
+            Persona_Controller pc = new Persona_Controller();
 
             pc.Insertar(persona1);
             pc.Insertar(persona2);
             
-            Persona p = pc.Buscar(461L);
-            pc.imprimirPersona(p);
-
-            p.setNombre("Pepe");
-            pc.Modificar(p);
-
-            p = pc.Buscar(481L);
-            pc.imprimirPersona(p);
-
-            pc.Eliminar(p);
-
             pc.Consulta();
+            
+//            Persona p = pc.Buscar(501L);
+//            pc.imprimirPersona(p);
+//
+//            p.setNombre("Pepe");
+//            pc.Modificar(p);
+//
+//            p = pc.Buscar(521L);
+//            pc.imprimirPersona(p);
+//
+//            pc.Eliminar(p);
+//
+//            pc.Consulta();
 
             System.out.println("FI");
+            
         } catch (Exception ex) {
             ex.printStackTrace();
         }

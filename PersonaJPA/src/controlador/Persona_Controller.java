@@ -15,7 +15,7 @@ import modelo.*;
  *
  * @author Jorge
  */
-public class Pesona_Controller {
+public class Persona_Controller {
 
     public void Insertar(Persona p) {
         // Recupera el entity manager
