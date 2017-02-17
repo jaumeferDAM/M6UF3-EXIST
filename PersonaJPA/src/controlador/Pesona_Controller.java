@@ -33,9 +33,6 @@ public class Pesona_Controller {
         System.out.println("persist");
         em.persist(p);
         
-        //Consulta();
-        //persona.setNombre("Luis");
-        
         System.out.println("commit");
         //em.getTransaction().commit();
         etx.commit();
@@ -59,8 +56,28 @@ public class Pesona_Controller {
         System.out.println("persist");
         em.merge(p);
         
-        //Consulta();
-        //persona.setNombre("Luis");
+        System.out.println("commit");
+        //em.getTransaction().commit();
+        etx.commit();
+
+        System.out.println("close");
+        em.close();
+    }
+    
+        public void Eliminar(Persona p) {
+        // Recupera el entity manager
+        EM_Controller oem = new EM_Controller();
+        EntityManager em = oem.getEntityManager();
+        
+        // El persistim a la base de dades
+        //em.getTransaction().begin();
+        EntityTransaction etx = em.getTransaction();
+
+        System.out.println("begin");
+        etx.begin();
+
+        System.out.println("persist");
+        em.remove(p);
         
         System.out.println("commit");
         //em.getTransaction().commit();
