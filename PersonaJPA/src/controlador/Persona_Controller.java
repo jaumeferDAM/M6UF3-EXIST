@@ -90,10 +90,11 @@ public class Persona_Controller {
         // Recupera el entity manager
         EntityManager em = new EM_Controller().getEntityManager();
 
-        System.out.println("busqueda");
+//        System.out.println("busqueda");
 //        Query query = em.createNamedQuery("Persona.personesPerCognom",Persona.class);
 //        query.setParameter("nombre", "Jorge");
 //        Persona p = (Persona) query.getSingleResult();
+
         Persona p = (Persona) em.find(Persona.class, id);
 
         System.out.println("close");

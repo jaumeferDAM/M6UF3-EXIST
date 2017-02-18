@@ -47,7 +47,7 @@ public class Persona implements Serializable {
     @Column(length = 9)
     private String telefono;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "direccioId")
     private Direccio direccio;
 
