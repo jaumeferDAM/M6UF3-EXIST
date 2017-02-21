@@ -23,8 +23,8 @@ import javax.persistence.Table;
  * @author Jorge
  */
 @Entity
-//@NamedQueries({
-//@NamedQuery(name="PersonaNombre", query="SELECT p FROM M6UF2_PERSONES p WHERE p.nombre=:nombre")})
+@NamedQueries({
+@NamedQuery(name="PersonaNombre", query="SELECT p FROM Persona p WHERE p.nombre=:nombre")})
 @Table(name = "M6UF2_PERSONES")
 public class Persona implements Serializable {
 

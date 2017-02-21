@@ -48,23 +48,23 @@ public class PersonaJPA {
             Persona_Controller pc = new Persona_Controller();
             
             //1er INSERTEM LES PERSONES A LA BBDD I DESPRES COMENTEM LES 3 LINIES SEGUENTES
-            pc.Insertar(persona1);
-            pc.Insertar(persona2);
-            pc.Consulta();
+//            pc.Insertar(persona1);
+//            pc.Insertar(persona2);
+//            pc.Consulta();
             
             //2n DESCOMENTEM LES 8 LINIES SEGUENTS, OBTENIM ELS IDPERSONA CREATS A LA BBDD I ELS MODIFIQUEM
-//            Persona p = pc.Buscar(661L); //PRIMER IDPERSONA
-//            pc.imprimirPersona(p);
-//
-//            p.setNombre("Pepe");
-//            pc.Modificar(p);
-//
-//            p = pc.Buscar(681L); //SEGON IDPERSONA
-//            pc.imprimirPersona(p);
-//
-//            pc.Eliminar(p);
-//
-//            pc.Consulta();
+            Persona p = pc.Buscar(721L); //PRIMER IDPERSONA
+            pc.imprimirPersona(p);
+
+            p.setNombre("Pepe");
+            pc.Modificar(p);
+
+            p = pc.Buscar(741L); //SEGON IDPERSONA
+            pc.imprimirPersona(p);
+
+            pc.Eliminar(p);
+
+            pc.Consulta();
 
             System.out.println("FI");
             
