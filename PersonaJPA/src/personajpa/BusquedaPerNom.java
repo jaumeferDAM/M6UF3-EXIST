@@ -199,7 +199,7 @@ public class BusquedaPerNom extends javax.swing.JFrame {
             jTextField6.setText("");
             jTextField7.setText("");
             jTextField8.setText("");
-            JOptionPane.showMessageDialog(rootPane, "Persona no encontrada en el sistema");
+            JOptionPane.showMessageDialog(rootPane, "\"" + jTextField9.getText() + "\" no se encuentra en el sistema");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
