@@ -46,28 +46,31 @@ public class PersonaJPA {
             persona2.setDireccio(direccio2);
 
             Persona_Controller pc = new Persona_Controller();
-            
+
             //1er INSERTEM LES PERSONES A LA BBDD I DESPRES COMENTEM LES 3 LINIES SEGUENTES
 //            pc.Insertar(persona1);
 //            pc.Insertar(persona2);
 //            pc.Consulta();
-            
-            //2n DESCOMENTEM LES 8 LINIES SEGUENTS, OBTENIM ELS IDPERSONA CREATS A LA BBDD I ELS MODIFIQUEM
-            Persona p = pc.Buscar(721L); //PRIMER IDPERSONA
+            //2n DESCOMENTEM LES 3 LINIES SEGUENTS, EXECUTEM LA @NamedQuery
+            String nom = "Emilio";
+            Persona p = pc.BuscarPerNom(nom); //PRIMER IDPERSONA
             pc.imprimirPersona(p);
 
-            p.setNombre("Pepe");
-            pc.Modificar(p);
-
-            p = pc.Buscar(741L); //SEGON IDPERSONA
-            pc.imprimirPersona(p);
-
-            pc.Eliminar(p);
-
-            pc.Consulta();
-
+            //3r DESCOMENTEM LES 8 LINIES SEGUENTS, OBTENIM ELS IDPERSONA CREATS A LA BBDD I ELS MODIFIQUEM
+//            Persona p = pc.Buscar(722L); //PRIMER IDPERSONA
+//            pc.imprimirPersona(p);
+//
+//            p.setNombre("Pepe");
+//            pc.Modificar(p);
+//
+//            p = pc.Buscar(741L); //SEGON IDPERSONA
+//            pc.imprimirPersona(p);
+//
+//            pc.Eliminar(p);
+//
+//            pc.Consulta();
             System.out.println("FI");
-            
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }
