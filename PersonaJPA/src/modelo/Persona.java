@@ -17,6 +17,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+import org.hibernate.annotations.IndexColumn;
 
 /**
  *
@@ -24,8 +26,10 @@ import javax.persistence.Table;
  */
 @Entity
 @NamedQueries({
-//@NamedQuery(name="PersonaNom", query="SELECT p FROM Persona p WHERE p.nombre=:nombre")})
-@NamedQuery(name=Persona.CONSULTA, query="SELECT p FROM Persona p WHERE p.nombre=:nombre")})
+@NamedQuery(name="PersonaNom", query="SELECT p FROM Persona p WHERE p.nombre=:nombre"),
+@NamedQuery(name="PersonaCognom", query="SELECT p FROM Persona p WHERE p.nombre=:cognom")
+})
+//@NamedQuery(name=Persona.CONSULTA, query="SELECT p FROM Persona p WHERE p.nombre=:nombre")})
 @Table(name = "M6UF2_PERSONES")
 public class Persona implements Serializable {
 
@@ -35,7 +39,10 @@ public class Persona implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "personaId")
     private Long id;
+    
+    @Transient
     public static final String CONSULTA = "PersonaNombre";
+    
     @Column(name = "personaNombre", length = 20, nullable = false)
     private String nombre;
 

@@ -7,8 +7,10 @@ package personajpa;
 
 import controlador.Persona_Controller;
 import java.awt.event.FocusListener;
+import java.util.List;
 import javax.persistence.NoResultException;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import modelo.Persona;
 
 /**
@@ -22,6 +24,24 @@ public class BusquedaPerNom extends javax.swing.JFrame {
      */
     public BusquedaPerNom() {
         initComponents();
+        BuidarTabla();
+    }
+
+    private void BuidarCamps() {
+        jTextField1.setText("");
+        jTextField2.setText("");
+        jTextField3.setText("");
+        jTextField4.setText("");
+        jTextField5.setText("");
+        jTextField6.setText("");
+        jTextField7.setText("");
+        jTextField8.setText("");
+    }
+    
+    private void BuidarTabla() {
+        String col[] = {"ID Persona", "Nom", "Cognoms", "EMAIL", "Telèfon", "Carrer", "Ciutat", "CP", "País"};
+        DefaultTableModel tableModel = new DefaultTableModel(col, 0);
+         jTable1.setModel(tableModel);
     }
 
     /**
@@ -52,6 +72,9 @@ public class BusquedaPerNom extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jTextField9 = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -99,12 +122,40 @@ public class BusquedaPerNom extends javax.swing.JFrame {
 
         jLabel9.setText("Nom a buscar:");
 
+        jButton2.setText("Buscar Tots");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID Persona", "Nom", "Cognoms", "Email", "Telèfon", "Carrer", "Ciutat", "CP", "País"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(56, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(63, 63, 63)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -116,20 +167,24 @@ public class BusquedaPerNom extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTextField9, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jTextField8)
-                    .addComponent(jTextField7)
-                    .addComponent(jTextField6)
-                    .addComponent(jTextField5)
-                    .addComponent(jTextField4)
-                    .addComponent(jTextField3)
-                    .addComponent(jTextField2)
-                    .addComponent(jTextField1))
-                .addGap(60, 60, 60))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
+                        .addComponent(jTextField8)
+                        .addComponent(jTextField7)
+                        .addComponent(jTextField6)
+                        .addComponent(jTextField5)
+                        .addComponent(jTextField4)
+                        .addComponent(jTextField3)
+                        .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jScrollPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -170,8 +225,10 @@ public class BusquedaPerNom extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9))
-                .addContainerGap(33, Short.MAX_VALUE))
+                    .addComponent(jLabel9)
+                    .addComponent(jButton2))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE))
         );
 
         pack();
@@ -190,15 +247,9 @@ public class BusquedaPerNom extends javax.swing.JFrame {
             jTextField7.setText(p.getDireccio().getCp());
             jTextField8.setText(p.getDireccio().getPais());
             jTextField9.setText("");
+            BuidarTabla();
         } catch (NoResultException e) {
-            jTextField1.setText("");
-            jTextField2.setText("");
-            jTextField3.setText("");
-            jTextField4.setText("");
-            jTextField5.setText("");
-            jTextField6.setText("");
-            jTextField7.setText("");
-            jTextField8.setText("");
+            BuidarCamps();
             JOptionPane.showMessageDialog(rootPane, "\"" + jTextField9.getText() + "\" no està al sistema");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -215,6 +266,28 @@ public class BusquedaPerNom extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField9ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        Persona_Controller pc = new Persona_Controller();
+        List<Persona> ConsultaTots = pc.ConsultaTots();
+        String col[] = {"ID Persona", "Nom", "Cognoms", "EMAIL", "Telèfon", "Carrer", "Ciutat", "CP", "País"};
+        DefaultTableModel tableModel = new DefaultTableModel(col, 0);
+        BuidarCamps();
+        for (Persona p : ConsultaTots) {
+            Object[] data = {p.getId(),
+                p.getNombre(),
+                p.getApellidos(),
+                p.getEmail(),
+                p.getTelefono(),
+                p.getDireccio().getCarrer(),
+                p.getDireccio().getCiutat(),
+                p.getDireccio().getCp(),
+                p.getDireccio().getPais()
+            };
+            tableModel.addRow(data);
+        }
+        jTable1.setModel(tableModel);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -229,16 +302,24 @@ public class BusquedaPerNom extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(BusquedaPerNom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BusquedaPerNom.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(BusquedaPerNom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BusquedaPerNom.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(BusquedaPerNom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BusquedaPerNom.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(BusquedaPerNom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BusquedaPerNom.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -252,6 +333,7 @@ public class BusquedaPerNom extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -261,6 +343,8 @@ public class BusquedaPerNom extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
