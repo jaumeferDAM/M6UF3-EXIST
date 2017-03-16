@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<comentarios>
+	<entrada>
+		<titulo>instant javascript</titulo>
+		<precio>34.95</precio>
+		<comentario>
+		Un libro muy bueno sobre bases de datos.
+		</comentario>
+	</entrada>
+	<entrada>
+		<titulo>instant active server pages</titulo>
+		<precio>65.95</precio>
+		<comentario>
+		Un libro claro y detallado de programación en UNIX.
+		</comentario>
+	</entrada>
+	<entrada>
+		<titulo>instant html</titulo>
+		<precio>65.95</precio>
+		<comentario>
+		Uno de los mejores libros de TCP/IP
+		</comentario>
+	</entrada>
+</comentarios>
+
