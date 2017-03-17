@@ -3,6 +3,7 @@
 		<categoria>scripting</categoria>
 		<categoria>bash</categoria>
 		<categoria>linux</categoria>
+		<categoria>programacion</categoria>
 		<fecha_pub>2015-04-21</fecha_pub>
 		<titulo>instant javascript</titulo>
 		<ventas>375298</ventas>
@@ -24,3 +25,6 @@
 		<ventas>127853</ventas>
 	</libro>
 </listadelibros>
+
+
+
