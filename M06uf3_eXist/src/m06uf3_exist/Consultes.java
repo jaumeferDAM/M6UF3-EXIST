@@ -62,7 +62,7 @@ public class Consultes {
         return libro;
     }
     
-    public void afegirNode(String codigo, String categoria, String fecha_pub, String titulo, String ventas) {
+    public void afegirLlibre(String codigo, String categoria, String fecha_pub, String titulo, String ventas) {
         try {
             xqe = con.createExpression();
             String xq = "update insert "
@@ -80,20 +80,20 @@ public class Consultes {
         }
     }
     
-    public void afegirDisponibilitat() {
+    public void afegirAtribut(String atributo, String valor) {
         try {
             xqe = con.createExpression();
-            String xq = "update insert attribute disponible {'S'} into doc('/m06uf3/libros.xml')//libro";
+            String xq = "update insert attribute " + atributo + " {'" + valor + "'} into doc('/m06uf3/libros.xml')//libro";
             xqe.executeCommand(xq);
         } catch (XQException ex) {
             System.out.println(ex.getMessage());
         }
     }
     
-    public void afegirPreu() {
+    public void afegirEtiqueta(String etiqueta, String valor) {
         try {
             xqe = con.createExpression();
-            String xq = "update insert <preu>'0€'</preu> into doc('/m06uf3/libros.xml')//libro";
+            String xq = "update insert <" + etiqueta + ">'" + valor + "'</" + etiqueta + "> into doc('/m06uf3/libros.xml')//libro";
             xqe.executeCommand(xq);
         } catch (XQException ex) {
             System.out.println(ex.getMessage());
@@ -104,6 +104,37 @@ public class Consultes {
         try {
             xqe = con.createExpression();
             String xq = "update value doc('/m06uf3/libros.xml')//libro[@codigo='" + codigo + "']/preu with '" + precio + "'";
+            xqe.executeCommand(xq);
+        } catch (XQException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    
+    public void eliminarLlibre(String codigo){
+        
+        try {
+            xqe = con.createExpression();
+            String xq = "update delete doc('/m06uf3/libros.xml')//libro[@codigo='" + codigo + "']";
+            xqe.executeCommand(xq);
+        } catch (XQException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    
+    public void eliminarEtiqueta(String etiqueta) {
+        try {
+            xqe = con.createExpression();
+            String xq = "update delete doc('/m06uf3/libros.xml')//libro/" + etiqueta;
+            xqe.executeCommand(xq);
+        } catch (XQException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    void eliminarAtribut(String atributo) {
+        try {
+            xqe = con.createExpression();
+            String xq = "update delete doc('/m06uf3/libros.xml')//libro/@" + atributo;
             xqe.executeCommand(xq);
         } catch (XQException ex) {
             System.out.println(ex.getMessage());
