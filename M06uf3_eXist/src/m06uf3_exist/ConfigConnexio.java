@@ -8,6 +8,7 @@ import javax.xml.xquery.XQDataSource;
 import javax.xml.xquery.XQException;
 import net.xqj.exist.ExistXQDataSource;
 
+
 public class ConfigConnexio {
 
     private XQDataSource xqs;

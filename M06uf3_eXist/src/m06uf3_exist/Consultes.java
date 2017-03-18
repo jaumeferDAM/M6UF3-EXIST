@@ -6,6 +6,7 @@
 package m06uf3_exist;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.xml.xquery.XQConnection;
 import javax.xml.xquery.XQDataSource;
@@ -20,29 +21,93 @@ import org.w3c.dom.Node;
  * @author Jorge
  */
 public class Consultes {
+
     private final XQConnection con;
-    XQExpression xqe;
-    XQPreparedExpression xqpe;
+    private XQExpression xqe;
+    private XQPreparedExpression xqpe;
 
     public Consultes(XQConnection con) {
         this.con = con;
     }
-    
+
     public List<Node> obtenirLlibres() {
-        List<Node> plantes = new ArrayList<>();
+        List<Node> libros = new ArrayList<>();
         try {
             xqe = con.createExpression();
             String xq = "for $b in doc ('/m06uf3/libros.xml')//libro return $b/titulo";
 
             XQResultSequence rs = xqe.executeQuery(xq);
             while (rs.next()) {
-                plantes.add(rs.getItem().getNode());
+                libros.add(rs.getItem().getNode());
             }
         } catch (XQException ex) {
             System.out.println(ex.getMessage());
         }
-        return plantes;
+        return libros;
+    }
+
+    public Node cercarNom(String nom) {
+        Node libro = null;
+        try {
+            xqe = con.createExpression();
+            String xq = "for $b in doc('/m06uf3/libros.xml')"
+                    + "//libro where every $a in $b/titulo satisfies ($a = '" + nom + "') return $b";
+
+            XQResultSequence rs = xqe.executeQuery(xq);
+            rs.next();
+            libro = rs.getItem().getNode();
+        } catch (XQException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return libro;
     }
     
+    public void afegirNode(String codigo, String categoria, String fecha_pub, String titulo, String ventas) {
+        try {
+            xqe = con.createExpression();
+            String xq = "update insert "
+                    + "    <libro codigo='" + codigo + "'>"
+                    + "        <categoria>" + categoria + "</categoria>"
+                    + "        <fecha_pub>" + fecha_pub + "</fecha_pub>"
+                    + "        <titulo>" + titulo + "</titulo>"
+                    + "        <ventas>" + ventas + "</ventas>"
+                    + "    </libro>\n"
+                    + "into doc('/m06uf3/libros.xml')/listadelibros";
+
+            xqe.executeCommand(xq);
+        } catch (XQException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
     
+    public void afegirDisponibilitat() {
+        try {
+            xqe = con.createExpression();
+            String xq = "update insert attribute disponible {'S'} into doc('/m06uf3/libros.xml')//libro";
+            xqe.executeCommand(xq);
+        } catch (XQException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    
+    public void afegirPreu() {
+        try {
+            xqe = con.createExpression();
+            String xq = "update insert <preu>'0€'</preu> into doc('/m06uf3/libros.xml')//libro";
+            xqe.executeCommand(xq);
+        } catch (XQException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    
+    public void modificarPreuNode(String codigo, String precio) {
+        try {
+            xqe = con.createExpression();
+            String xq = "update value doc('/m06uf3/libros.xml')//libro[@codigo='" + codigo + "']/preu with '" + precio + "'";
+            xqe.executeCommand(xq);
+        } catch (XQException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
 }
