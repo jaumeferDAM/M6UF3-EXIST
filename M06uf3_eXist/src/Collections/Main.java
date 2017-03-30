@@ -1,0 +1,46 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Collections;
+
+import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.xmldb.api.DatabaseManager;
+import org.xmldb.api.base.Collection;
+import org.xmldb.api.base.Database;
+import org.xmldb.api.base.XMLDBException;
+
+/**
+ *
+ * @author ALUMNEDAM
+ */
+public class Main {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) throws ClassNotFoundException, XMLDBException {
+       Consultes cs = new Consultes();
+       m06uf3_exist.ConfigConnexio cc = new m06uf3_exist.ConfigConnexio();
+       cs.conectar();
+       
+       //Obtenemos el directorio actual y lo muestra por pantalla
+        System.out.println(cs.obtenirColeccioActual());
+        //Obtenemos el directorio padre y lo muestra por pantalla
+        System.out.println(cs.obtenirColeccioPare());
+        //Obtenemos la/s coleccion/es hijos y lo/s muestra por pantalla
+        System.out.println(Arrays.toString(cs.obtenirCollecionsFill()));
+        //Añade una coleccion con el nombre como parametro
+        cs.crearCollecio("Prueba1234");
+        //Elimina una coleccion con el nombre como parametro
+        cs.eliminarCollecions("Prueba1234");
+        //Comprueba si una collection tiene x recurso
+        cs.CollecionTeRecurs("/Practica6", "plantes.xml");
+        //Instancia el objeto XMLResource
+        cs.met1("nombre");
+    }
+    
+}

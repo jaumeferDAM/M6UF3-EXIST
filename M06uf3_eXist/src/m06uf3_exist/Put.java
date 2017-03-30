@@ -24,7 +24,7 @@ public class Put {
     public static void main(String args[]) throws Exception {
 
         //String collection = "/db/m06uf3", file = "libros.xml";
-        String collection = "/db/m06uf3", file = "comentarios.xml";
+        String collection = "/db/m06uf3", file = "plantes.xml";
 
         // initialize driver
         String driver = "org.exist.xmldb.DatabaseImpl";

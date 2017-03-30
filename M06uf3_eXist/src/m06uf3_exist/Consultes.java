@@ -26,15 +26,56 @@ public class Consultes {
     private XQExpression xqe;
     private XQPreparedExpression xqpe;
 
+    /*Modificar el format dels preus traient-li el caràcter del $.
+        ◦Obtenir un llistat de  totes les plantes.*/
+    //    public void modificarPreuNode(String codigo, String precio) {
+//        try {
+//            xqe = con.createExpression();
+//            String xq = "update value doc('plantes.xml')//libro[@codigo='" + codigo + "']/preu with '" + precio + "'";
+//            xqe.executeCommand(xq);
+//        } catch (XQException ex) {
+//            System.out.println(ex.getMessage());
+//        }
+//    }
+    public void eliminarDolar() {
+
+        try {
+            xqe = con.createExpression();
+            /*update rename doc('/prova1/libros.xml')//libro/@anyo as 'anyEdicion'*/
+            for (int i = 0; i < 10; i++) {
+                /*update  value doc('/prova1/libros.xml')//libro/@anyEdicio with '2010*/
+                 String xq = "for $b in doc('/Practica6/plantes.xml')//PLANT/PRICE return update value $b with substring($b,2)";
+                xqe.executeCommand(xq);
+            }
+
+        } catch (XQException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
     public Consultes(XQConnection con) {
         this.con = con;
     }
 
-    public List<Node> obtenirLlibres() {
+    public void editarEtiqueta(String[] anterior, String[] nuevo) {
+        try {
+            xqe = con.createExpression();
+            /*update rename doc('/prova1/libros.xml')//libro/@anyo as 'anyEdicion'*/
+            for (int i = 0; i < anterior.length; i++) {
+                String xq = "update rename doc('Practica6/plantes.xml')//PLANT/" + anterior[i] + " as '" + nuevo[i] + "'";
+                xqe.executeCommand(xq);
+            }
+
+        } catch (XQException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    public List<Node> obtenirPlantes() {
         List<Node> libros = new ArrayList<>();
         try {
             xqe = con.createExpression();
-            String xq = "for $b in doc ('/m06uf3/libros.xml')//libro return $b/titulo";
+            String xq = "for $b in doc ('/Practica6/plantes.xml')//PLANT return $b/COMMON";
 
             XQResultSequence rs = xqe.executeQuery(xq);
             while (rs.next()) {
@@ -45,86 +86,135 @@ public class Consultes {
         }
         return libros;
     }
+//
 
     public Node cercarNom(String nom) {
-        Node libro = null;
+        Node planta = null;
         try {
             xqe = con.createExpression();
-            String xq = "for $b in doc('/m06uf3/libros.xml')"
-                    + "//libro where every $a in $b/titulo satisfies ($a = '" + nom + "') return $b";
+            String xq = "for $b in doc ('Practica6/plantes.xml')"
+                    + "//PLANT where every $a in $b/COMMON satisfies ($a = '" + nom + "') return $b";
 
             XQResultSequence rs = xqe.executeQuery(xq);
             rs.next();
-            libro = rs.getItem().getNode();
+            planta = rs.getItem().getNode();
         } catch (XQException ex) {
             System.out.println(ex.getMessage());
         }
-        return libro;
+        return planta;
     }
-    
-    public void afegirLlibre(String codigo, String categoria, String fecha_pub, String titulo, String ventas) {
+
+    public ArrayList<Node> cercaPerZona(String zona) {
+        ArrayList<Node> plantas = new ArrayList<>();
         try {
             xqe = con.createExpression();
-            String xq = "update insert "
-                    + "    <libro codigo='" + codigo + "'>"
-                    + "        <categoria>" + categoria + "</categoria>"
-                    + "        <fecha_pub>" + fecha_pub + "</fecha_pub>"
-                    + "        <titulo>" + titulo + "</titulo>"
-                    + "        <ventas>" + ventas + "</ventas>"
-                    + "    </libro>\n"
-                    + "into doc('/m06uf3/libros.xml')/listadelibros";
+            String xq = "for $b in doc ('/Practica6/plantes.xml')//PLANT where every $a in $b/ZONE satisfies($a = '" + zona + "') return $b";
 
+            XQResultSequence rs = xqe.executeQuery(xq);
+            while (rs.next()) {
+                plantas.add(rs.getItem().getNode());
+            }
+        } catch (XQException ex) {
+
+            System.out.println(ex.getMessage());
+        }
+        return plantas;
+    }
+
+    public ArrayList<Node> CercaPerPreu(String preuMinim, String preuMaxim) {
+        Node planta;
+        ArrayList<Node> plantas = new ArrayList<>();
+        try {
+            xqe = con.createExpression();
+            String xq = "for $b in doc ('Practica6/plantes.xml')//PLANT where every $a in $b/PRICE satisfies($a >= '" + preuMinim + "' and $a <= '" + preuMaxim + "') return $b";
+
+            XQResultSequence rs = xqe.executeQuery(xq);
+            while (rs.next()) {
+                plantas.add(rs.getItem().getNode());
+            }
+        } catch (XQException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return plantas;
+    }
+
+    public void afegirPlanta(String nombre, String nombreBotanico, String Zona, String luz, String precio, String disponibilidad) {
+        try {
+
+            xqe = con.createExpression();
+            String xq = "update insert "
+                    + "     <PLANT COMMON='" + nombre + "'>"
+                    + "             <BOTANICAL>" + nombreBotanico + "</BOTANICAL>"
+                    + "             <ZONE>" + Zona + "</ZONE>"
+                    + "             <LIGHT>" + luz + "</LIGHT>"
+                    + "             <PRICE>" + precio + "</PRICE>"
+                    + "             <AVAILABILITY>" + disponibilidad + "</AVAILABILITY>"
+                    + "         </PLANT>\n"
+                    + " preceding doc('Practica6/plantes.xml')//PLANT[1]";
+
+//            xqe = con.createExpression();
+//            String xq = "update insert "
+//                    + "    <libro codigo='" + codigo + "'>"
+//                    + "        <categoria>" + categoria + "</categoria>"
+//                    + "        <fecha_pub>" + fecha_pub + "</fecha_pub>"
+//                    + "        <titulo>" + titulo + "</titulo>"
+//                    + "        <ventas>" + ventas + "</ventas>"
+//                    + "    </libro>\n"
+//                    + "into doc('plantes.xml')/listadelibros";
+//
             xqe.executeCommand(xq);
         } catch (XQException ex) {
             System.out.println(ex.getMessage());
         }
     }
-    
+//    
+
     public void afegirAtribut(String atributo, String valor) {
         try {
             xqe = con.createExpression();
-            String xq = "update insert attribute " + atributo + " {'" + valor + "'} into doc('/m06uf3/libros.xml')//libro";
+            String xq = "update insert attribute " + atributo + " {'" + valor + "'} into doc('Practica6/plantes.xml')//PLANT";
             xqe.executeCommand(xq);
         } catch (XQException ex) {
             System.out.println(ex.getMessage());
         }
     }
-    
+//    
+
     public void afegirEtiqueta(String etiqueta, String valor) {
         try {
             xqe = con.createExpression();
-            String xq = "update insert <" + etiqueta + ">'" + valor + "'</" + etiqueta + "> into doc('/m06uf3/libros.xml')//libro";
+            String xq = "update insert <" + etiqueta + ">'" + valor + "'</" + etiqueta + "> into doc('Practica6/plantes.xml')//PLANT";
             xqe.executeCommand(xq);
         } catch (XQException ex) {
             System.out.println(ex.getMessage());
         }
     }
     
-    public void modificarPreuNode(String codigo, String precio) {
+    public void modificarPreuNode(String COMMON, String precio) {
         try {
             xqe = con.createExpression();
-            String xq = "update value doc('/m06uf3/libros.xml')//libro[@codigo='" + codigo + "']/preu with '" + precio + "'";
+            String xq = "for $b in doc('/Practica6/plantes.xml')//PLANT where every $a in $b/COMMON satisfies($a = '" + COMMON + "') return update value $b/PRICE with " + precio;
             xqe.executeCommand(xq);
         } catch (XQException ex) {
             System.out.println(ex.getMessage());
         }
     }
     
-    public void eliminarLlibre(String codigo){
+    public void eliminarPlanta(String nom){
         
         try {
             xqe = con.createExpression();
-            String xq = "update delete doc('/m06uf3/libros.xml')//libro[@codigo='" + codigo + "']";
-            xqe.executeCommand(xq);
+            String xq = "for $b in doc('/Practica6/plantes.xml')//PLANT where every $a in $b/COMMON satisfies($a = '" + nom + "') return update delete $b";            xqe.executeCommand(xq);
         } catch (XQException ex) {
             System.out.println(ex.getMessage());
         }
     }
     
+
     public void eliminarEtiqueta(String etiqueta) {
         try {
             xqe = con.createExpression();
-            String xq = "update delete doc('/m06uf3/libros.xml')//libro/" + etiqueta;
+            String xq = "update delete doc('plantes.xml')//libro/" + etiqueta;
             xqe.executeCommand(xq);
         } catch (XQException ex) {
             System.out.println(ex.getMessage());
@@ -134,7 +224,7 @@ public class Consultes {
     void eliminarAtribut(String atributo) {
         try {
             xqe = con.createExpression();
-            String xq = "update delete doc('/m06uf3/libros.xml')//libro/@" + atributo;
+            String xq = "update delete doc('plantes.xml')//libro/@" + atributo;
             xqe.executeCommand(xq);
         } catch (XQException ex) {
             System.out.println(ex.getMessage());
