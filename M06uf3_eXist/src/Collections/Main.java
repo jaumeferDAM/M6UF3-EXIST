@@ -5,9 +5,12 @@
  */
 package Collections;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.xml.parsers.ParserConfigurationException;
+import org.xml.sax.SAXException;
 import org.xmldb.api.DatabaseManager;
 import org.xmldb.api.base.Collection;
 import org.xmldb.api.base.Database;
@@ -23,7 +26,16 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws ClassNotFoundException, XMLDBException {
-       Consultes cs = new Consultes();
+       Consultes cs = null;
+        try {
+            cs = new Consultes("ficherito.xml");
+        } catch (ParserConfigurationException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SAXException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
        m06uf3_exist.ConfigConnexio cc = new m06uf3_exist.ConfigConnexio();
        cs.conectar();
        
@@ -39,8 +51,8 @@ public class Main {
         cs.eliminarCollecions("Prueba1234");
         //Comprueba si una collection tiene x recurso
         cs.CollecionTeRecurs("/Practica6", "plantes.xml");
-        //Instancia el objeto XMLResource
-        cs.met1("nombre");
+        //Afegir un recurs a la base de dades
+        cs.AfegirRecurs("nombre");
     }
     
 }

@@ -5,14 +5,18 @@
  */
 package Collections;
 
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import m06uf3_exist.Put;
 import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
 import org.xmldb.api.DatabaseManager;
 import org.xmldb.api.base.Collection;
 import org.xmldb.api.base.Database;
@@ -43,13 +47,13 @@ public class Consultes {
     Transformer trns;
     StreamResult result;
     DOMSource source;
+    String rutaDocument;
 
-    public Consultes(DocumentBuilder documentBuilder, Document doc, Transformer trns, StreamResult result, DOMSource source) {
-        this.documentBuilder = documentBuilder;
-        this.doc = doc;
-        this.trns = trns;
-        this.result = result;
-        this.source = source;
+    public Consultes(String rutaDocument) throws ParserConfigurationException, SAXException, IOException {
+        this.rutaDocument = rutaDocument;
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        DocumentBuilder dBuilder = dbf.newDocumentBuilder();
+        doc = dBuilder.parse(file);
     }
 
     public Consultes() {
@@ -123,15 +127,17 @@ public class Consultes {
         }
         System.out.println("Trobat el recurs: " + coll.getResource(nom).getId());
     }
-    public void met1(String args) throws XMLDBException {
+    public void AfegirRecurs(String args) throws XMLDBException {
         
         XMLResource xMLResource = null;
         xMLResource = (XMLResource) coll.createResource("Recurso1",XMLResource.RESOURCE_TYPE);
-        xMLResource.setContentAsDOM(doc.N);
+        xMLResource.setContentAsDOM(doc);
+        coll.storeResource(xMLResource);
+        System.out.println("Añadido");
 //        xMLResource = (XMLResource) coll.getResource(args);
     }
     public void DocumentBuilderFactor() {
-
+        
     
     }
 }
