@@ -26,7 +26,7 @@ public class Main {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws ClassNotFoundException, XMLDBException {
+    public static void main(String[] args) throws ClassNotFoundException, XMLDBException, IOException {
         Consultes cs = null;
         try {
             cs = new Consultes("ficherito.xml");
@@ -53,11 +53,14 @@ public class Main {
         //Comprueba si una collection tiene x recurso
 //        cs.CollecionTeRecurs("/Practica6", "plantes.xml");
         //Afegir un recurs a la base de dades
-        cs.AfegirRecurs("FicheroPrueba");
-        //Obtenir recurs XML emmagatzemat a la base de dades en un DOM
-        XMLResource ObtenirRecurs = cs.ObtenirRecurs("FicheroPrueba");
-        System.out.println("Se ha obtenido: " + ObtenirRecurs.getDocumentId());
-        cs.eliminarRecurs("FicheroPrueba");
+//        cs.AfegirRecurs("FicheroPrueba");
+//        //Obtenir recurs XML emmagatzemat a la base de dades en un DOM
+//        XMLResource ObtenirRecurs = cs.ObtenirRecurs("FicheroPrueba");
+//        System.out.println("Se ha obtenido: " + ObtenirRecurs.getDocumentId());
+//        cs.eliminarRecurs("FicheroPrueba");
+//  Añadir una imagen al abase de dades
+//        cs.afegirFitxerBinario("0-1.png");
+        cs.descarregaFitxer("0-1.png");
     }
 
 }

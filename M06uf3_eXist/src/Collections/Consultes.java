@@ -5,7 +5,11 @@
  */
 package Collections;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
@@ -20,8 +24,10 @@ import org.xml.sax.SAXException;
 import org.xmldb.api.DatabaseManager;
 import org.xmldb.api.base.Collection;
 import org.xmldb.api.base.Database;
+import org.xmldb.api.base.Resource;
 import org.xmldb.api.base.Service;
 import org.xmldb.api.base.XMLDBException;
+import org.xmldb.api.modules.BinaryResource;
 import org.xmldb.api.modules.CollectionManagementService;
 import org.xmldb.api.modules.XMLResource;
 
@@ -35,13 +41,9 @@ public class Consultes {
     Collection coll;
     CollectionManagementService cms;
     Service[] serveis;
-    
-    
-    
-    
-    
+
     //DocumentBuilder,etc
-        String file = "ficherito.xml";
+    String file = "ficherito.xml";
     DocumentBuilder documentBuilder;
     Document doc;
     Transformer trns;
@@ -58,8 +60,6 @@ public class Consultes {
 
     public Consultes() {
     }
-    
-    
 
     public Collection conectar() {
         try {
@@ -127,18 +127,19 @@ public class Consultes {
         }
         System.out.println("Trobat el recurs: " + coll.getResource(nom).getId());
     }
+
     public void AfegirRecurs(String args) throws XMLDBException {
-        
+        //pruebadepush
         XMLResource xMLResource = null;
-        xMLResource = (XMLResource) coll.createResource(args,XMLResource.RESOURCE_TYPE);
+        xMLResource = (XMLResource) coll.createResource(args, XMLResource.RESOURCE_TYPE);
         xMLResource.setContentAsDOM(doc);
         coll.storeResource(xMLResource);
         System.out.println("Añadido");
 //        xMLResource = (XMLResource) coll.getResource(args);
     }
+
     public void DocumentBuilderFactor() {
-        
-    
+
     }
 
     public XMLResource ObtenirRecurs(String nombreFichero) {
@@ -157,6 +158,33 @@ public class Consultes {
             xMLResource = (XMLResource) coll.getResource(ficheroPrueba);
             coll.removeResource(xMLResource);
             System.out.println("Eliminado");
+        } catch (XMLDBException ex) {
+            Logger.getLogger(Consultes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    void afegirFitxerBinario(String ruta) {
+        try {
+            BinaryResource binaryResource = null;
+            binaryResource = (BinaryResource) coll.createResource(ruta, BinaryResource.RESOURCE_TYPE);
+            File imatge = new File(ruta);
+            binaryResource.setContent(imatge);
+            coll.storeResource(binaryResource);
+            System.out.println("Añadido");
+
+        } catch (XMLDBException ex) {
+            Logger.getLogger(Consultes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    void descarregaFitxer(String ruta) throws IOException {
+        try {
+            BinaryResource binaryResource = null;
+            byte[] source = (byte[]) coll.getResource(ruta).getContent();
+//            binaryResource = (BinaryResource) coll.createResource(ruta, BinaryResource.RESOURCE_TYPE);
+            File imatge;
+            Path p = Paths.get(ruta);
+            Files.write(p, source);
+            System.out.println("Descargado");
         } catch (XMLDBException ex) {
             Logger.getLogger(Consultes.class.getName()).log(Level.SEVERE, null, ex);
         }
