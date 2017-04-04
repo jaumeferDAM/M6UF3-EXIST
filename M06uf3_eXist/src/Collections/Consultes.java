@@ -130,7 +130,7 @@ public class Consultes {
     public void AfegirRecurs(String args) throws XMLDBException {
         
         XMLResource xMLResource = null;
-        xMLResource = (XMLResource) coll.createResource("Recurso1",XMLResource.RESOURCE_TYPE);
+        xMLResource = (XMLResource) coll.createResource(args,XMLResource.RESOURCE_TYPE);
         xMLResource.setContentAsDOM(doc);
         coll.storeResource(xMLResource);
         System.out.println("Añadido");
@@ -139,5 +139,26 @@ public class Consultes {
     public void DocumentBuilderFactor() {
         
     
+    }
+
+    public XMLResource ObtenirRecurs(String nombreFichero) {
+        XMLResource xMLResource = null;
+        try {
+            xMLResource = (XMLResource) coll.getResource(nombreFichero);
+        } catch (XMLDBException ex) {
+            Logger.getLogger(Consultes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return xMLResource;
+    }
+
+    void eliminarRecurs(String ficheroPrueba) {
+        try {
+            XMLResource xMLResource = null;
+            xMLResource = (XMLResource) coll.getResource(ficheroPrueba);
+            coll.removeResource(xMLResource);
+            System.out.println("Eliminado");
+        } catch (XMLDBException ex) {
+            Logger.getLogger(Consultes.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
