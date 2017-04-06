@@ -11,9 +11,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
-import org.xmldb.api.DatabaseManager;
-import org.xmldb.api.base.Collection;
-import org.xmldb.api.base.Database;
 import org.xmldb.api.base.XMLDBException;
 import org.xmldb.api.modules.XMLResource;
 
@@ -23,6 +20,8 @@ import org.xmldb.api.modules.XMLResource;
  */
 public class Main {
 
+    //Crear una collecion, insertar un nodo y/o recurso nuevo, modificar un nodo nuevo, eliminar una coleccion. Subir un fichero (No binario!)
+    //Insertar, modificar i buscar por nombre, parametro,atributo, insertar con atributo, etc. Servicios cms(collection Management service);
     /**
      * @param args the command line arguments
      */
@@ -41,25 +40,25 @@ public class Main {
         cs.conectar();
 
         //Obtenemos el directorio actual y lo muestra por pantalla
-//        System.out.println(cs.obtenirColeccioActual());
+        System.out.println(cs.obtenirColeccioActual());
         //Obtenemos el directorio padre y lo muestra por pantalla
-//        System.out.println(cs.obtenirColeccioPare());
+        System.out.println(cs.obtenirColeccioPare());
         //Obtenemos la/s coleccion/es hijos y lo/s muestra por pantalla
-//        System.out.println(Arrays.toString(cs.obtenirCollecionsFill()));
+        System.out.println(Arrays.toString(cs.obtenirCollecionsFill()));
         //Añade una coleccion con el nombre como parametro
-//        cs.crearCollecio("Prueba1234");
+        cs.crearCollecio("Prueba1234");
         //Elimina una coleccion con el nombre como parametro
-//        cs.eliminarCollecions("Prueba1234");
+        cs.eliminarCollecions("Prueba1234");
         //Comprueba si una collection tiene x recurso
-//        cs.CollecionTeRecurs("/Practica6", "plantes.xml");
+        cs.CollecionTeRecurs("/Practica6", "plantes.xml");
         //Afegir un recurs a la base de dades
-//        cs.AfegirRecurs("FicheroPrueba");
-//        //Obtenir recurs XML emmagatzemat a la base de dades en un DOM
-//        XMLResource ObtenirRecurs = cs.ObtenirRecurs("FicheroPrueba");
-//        System.out.println("Se ha obtenido: " + ObtenirRecurs.getDocumentId());
-//        cs.eliminarRecurs("FicheroPrueba");
-//  Añadir una imagen al abase de dades
-//        cs.afegirFitxerBinario("0-1.png");
+        cs.AfegirRecurs("FicheroPrueba");
+        //Obtenir recurs XML emmagatzemat a la base de dades en un DOM
+        XMLResource ObtenirRecurs = cs.ObtenirRecurs("FicheroPrueba");
+        System.out.println("Se ha obtenido: " + ObtenirRecurs.getDocumentId());
+        cs.eliminarRecurs("FicheroPrueba");
+        //  Añadir una imagen al abase de dades
+        cs.afegirFitxerBinario("0-1.png");
         cs.descarregaFitxer("0-1.png");
     }
 

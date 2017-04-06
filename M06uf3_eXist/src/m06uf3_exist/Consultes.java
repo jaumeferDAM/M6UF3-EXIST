@@ -26,24 +26,15 @@ public class Consultes {
     private XQExpression xqe;
     private XQPreparedExpression xqpe;
 
-    /*Modificar el format dels preus traient-li el caràcter del $.
-        ◦Obtenir un llistat de  totes les plantes.*/
-    //    public void modificarPreuNode(String codigo, String precio) {
-//        try {
-//            xqe = con.createExpression();
-//            String xq = "update value doc('plantes.xml')//libro[@codigo='" + codigo + "']/preu with '" + precio + "'";
-//            xqe.executeCommand(xq);
-//        } catch (XQException ex) {
-//            System.out.println(ex.getMessage());
-//        }
-//    }
+    /*
+    * Metodo para eliminar el $ del precio
+    */
     public void eliminarDolar() {
 
         try {
             xqe = con.createExpression();
-            /*update rename doc('/prova1/libros.xml')//libro/@anyo as 'anyEdicion'*/
             for (int i = 0; i < 10; i++) {
-                /*update  value doc('/prova1/libros.xml')//libro/@anyEdicio with '2010*/
+                //Devuelve un string con el valor de las letras desde 2-final
                  String xq = "for $b in doc('/Practica6/plantes.xml')//PLANT/PRICE return update value $b with substring($b,2)";
                 xqe.executeCommand(xq);
             }
@@ -57,6 +48,9 @@ public class Consultes {
         this.con = con;
     }
 
+    /*
+    * Metodo para traducir las etiquetas
+    */
     public void editarEtiqueta(String[] anterior, String[] nuevo) {
         try {
             xqe = con.createExpression();
@@ -71,6 +65,9 @@ public class Consultes {
         }
     }
 
+    /*
+    * Metodo que devuelve un arrayList con las plantas
+    */
     public List<Node> obtenirPlantes() {
         List<Node> libros = new ArrayList<>();
         try {
@@ -88,6 +85,10 @@ public class Consultes {
     }
 //
 
+    /*
+    * Metodo que devuelve un nodo planta, que tenga el mismo nombre que pasado 
+    * por parametro
+    */
     public Node cercarNom(String nom) {
         Node planta = null;
         try {
@@ -104,6 +105,9 @@ public class Consultes {
         return planta;
     }
 
+    /*
+    * Metodo que devuelve una lista de plantas que estan dentro de una condicion(zona)
+    */
     public ArrayList<Node> cercaPerZona(String zona) {
         ArrayList<Node> plantas = new ArrayList<>();
         try {
@@ -121,6 +125,9 @@ public class Consultes {
         return plantas;
     }
 
+    /*
+    * Metodo que devuelve una lista de plantas que estan dentro de una condicion(precio)
+    */
     public ArrayList<Node> CercaPerPreu(String preuMinim, String preuMaxim) {
         Node planta;
         ArrayList<Node> plantas = new ArrayList<>();
@@ -138,6 +145,9 @@ public class Consultes {
         return plantas;
     }
 
+    /*
+    * Metodo que añade una planta en archivo con los datos que llegan por parametro.
+    */
     public void afegirPlanta(String nombre, String nombreBotanico, String Zona, String luz, String precio, String disponibilidad) {
         try {
 
@@ -151,24 +161,16 @@ public class Consultes {
                     + "             <AVAILABILITY>" + disponibilidad + "</AVAILABILITY>"
                     + "         </PLANT>\n"
                     + " preceding doc('Practica6/plantes.xml')//PLANT[1]";
-
-//            xqe = con.createExpression();
-//            String xq = "update insert "
-//                    + "    <libro codigo='" + codigo + "'>"
-//                    + "        <categoria>" + categoria + "</categoria>"
-//                    + "        <fecha_pub>" + fecha_pub + "</fecha_pub>"
-//                    + "        <titulo>" + titulo + "</titulo>"
-//                    + "        <ventas>" + ventas + "</ventas>"
-//                    + "    </libro>\n"
-//                    + "into doc('plantes.xml')/listadelibros";
-//
             xqe.executeCommand(xq);
         } catch (XQException ex) {
             System.out.println(ex.getMessage());
         }
     }
-//    
+ 
 
+    /*
+    * Metodo que añade un atributo x con un valor y en las plantas.
+    */
     public void afegirAtribut(String atributo, String valor) {
         try {
             xqe = con.createExpression();
@@ -178,8 +180,10 @@ public class Consultes {
             System.out.println(ex.getMessage());
         }
     }
-//    
 
+    /*
+    * Metodo que añade una etiqueta x con un valor y en las plantas.
+    */
     public void afegirEtiqueta(String etiqueta, String valor) {
         try {
             xqe = con.createExpression();
@@ -190,6 +194,9 @@ public class Consultes {
         }
     }
     
+    /*
+    * Metodo para modificar el precio de una planta con un nombre que llega por parametro.
+    */
     public void modificarPreuNode(String COMMON, String precio) {
         try {
             xqe = con.createExpression();
@@ -200,6 +207,9 @@ public class Consultes {
         }
     }
     
+    /*
+    * Metodo que elimina una planta con nombre pasado por parametro
+    */
     public void eliminarPlanta(String nom){
         
         try {
@@ -211,6 +221,9 @@ public class Consultes {
     }
     
 
+    /*
+    * Metodo que elimina una eitqueta con el nombre igual al pasado por parametro.
+    */
     public void eliminarEtiqueta(String etiqueta) {
         try {
             xqe = con.createExpression();
@@ -221,6 +234,9 @@ public class Consultes {
         }
     }
 
+    /*
+    * Metodo que elimina un atributo con el nombre igual al pasado por parametro.
+    */
     void eliminarAtribut(String atributo) {
         try {
             xqe = con.createExpression();
